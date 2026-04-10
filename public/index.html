@@ -629,7 +629,7 @@
       </div>
     </div>
 
-    <div class="api-error" id="api-error">Something went wrong. Please try again in a moment.</div>
+    <div class="api-error" id="api-error">Something went wrong. Please try again in a moment. <span id="api-error-detail" style="font-size:13px;display:block;margin-top:6px;opacity:0.8;"></span></div>
 
     <button class="submit-btn" id="submit-btn">Run My Findability Diagnostic →</button>
     <p class="submit-note">Uses an advanced AI model to simulate how a skilled recruiter would evaluate the discoverability of your professional attributes. Not a live search — a calibrated judgment.</p>
@@ -762,7 +762,10 @@
       });
 
       const data = await response.json();
-      if (!response.ok || !data.content?.[0]?.text) throw new Error('API error');
+      if (!response.ok || !data.content?.[0]?.text) {
+        const msg = data?.error?.message || data?.error || JSON.stringify(data).slice(0, 200);
+        throw new Error(`${response.status}: ${msg}`);
+      }
 
       await new Promise(r => setTimeout(r, 5800));
 
@@ -774,6 +777,7 @@
       document.getElementById('loading-wrap').classList.remove('show');
       document.getElementById('submit-btn').disabled = false;
       document.getElementById('api-error').classList.add('show');
+      document.getElementById('api-error-detail').textContent = err.message;
       console.error(err);
     }
   }
