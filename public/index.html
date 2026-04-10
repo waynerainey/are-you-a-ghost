@@ -443,14 +443,40 @@
     <h1>Are You a <em>Ghost?</em></h1>
     <p class="header-sub">A recruiter doesn't start with your resume. They start with a search. This tool simulates what that search finds — and where you rank.</p>
     <div class="header-meta">
-      6 sources checked &nbsp;·&nbsp; 4 tiers: Rich / Partial / Thin / Ghost &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection#daadbba3b4bf9aaeb2bfb9bba8bfbfa8b9bbb4aeb3b4bbf4b9b5b7" style="color:var(--accent);text-decoration:none;">Wayne Rainey · The Career Cantina</a>
+      6 sources checked &nbsp;·&nbsp; 4 tiers: Rich / Partial / Thin / Ghost &nbsp;·&nbsp; <a href="https://thecareercantina.com" style="color:var(--accent);text-decoration:none;">Wayne Rainey · The Career Cantina</a>
     </div>
   </header>
 
   <div class="calibration">
     <div class="calibration-label">What This Tool Is — Read This First</div>
     <p>This tool simulates a <strong>cold sourcing search</strong> — a recruiter who has never heard of you, looking for someone with your background. It is not a verification check. If a recruiter already has your name and email, that is a different process entirely. This is what happens <em>before they ever know you exist.</em></p>
-    <p style="margin-top:12px">It runs one search, the way one recruiter might look. Recruiters search differently. Tools search differently. Networks find people that searches never would. A Ghost result means you are hard to find <em>this way, on this day, with these inputs</em> — not that you are invisible everywhere. Most tools that evaluate you do not show you how. This one does. That is the point.</p>
+  </div>
+
+  <div class="accordion-wrap">
+    <button class="accordion-trigger" onclick="toggleAccordion('how')" id="btn-how">
+      <span>So how do recruiters search?</span>
+      <span class="chevron" id="chevron-how">▼</span>
+    </button>
+    <div class="accordion-body" id="accordion-how">
+      <div style="padding:22px 20px;font-size:16px;color:var(--text-muted);line-height:1.75">
+        <p style="margin-bottom:12px">Recruiters build Boolean search strings from professional attributes — title, domain, geography, credential — and run them across multiple sources. The search string this tool constructs is a starting point, not a final answer. A real recruiter iterates — expanding or collapsing the string based on what comes back. Too many results? They add terms. Too few? They broaden.</p>
+        <p>What you see here is the first pass. What matters is whether you surface at all. Most tools that evaluate you don't show you how they search. This one does. That is the point.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-wrap">
+    <button class="accordion-trigger" onclick="toggleAccordion('linkedin')" id="btn-linkedin">
+      <span>Isn't being on LinkedIn enough?</span>
+      <span class="chevron" id="chevron-linkedin">▼</span>
+    </button>
+    <div class="accordion-body" id="accordion-linkedin">
+      <div style="padding:22px 20px;font-size:16px;color:var(--text-muted);line-height:1.75">
+        <p style="margin-bottom:12px">LinkedIn is a walled garden. Its content does not fully index on the open web. A recruiter searching outside the platform — using Google, or a sourcing tool like SeekOut or Hiretual — can only find the signal that has leaked out. That means your public profile summary, your name in other people's posts, and anything that has been scraped by data aggregators.</p>
+        <p style="margin-bottom:12px">Even within LinkedIn, what a recruiter sees depends on their subscription level and network proximity to you. A recruiter with LinkedIn Recruiter and a strong network sees more than a hiring manager on a free account with no connection to you.</p>
+        <p>External proof deposits — a company bio, a conference listing, a published article — are visible to everyone regardless of LinkedIn tier. They live on the open web. No gate. The more of those you have, the less your visibility depends on who is doing the searching.</p>
+      </div>
+    </div>
   </div>
 
   <!-- Tier Reference -->
@@ -628,7 +654,7 @@
       </div>
     </div>
 
-    <div class="api-error" id="api-error">Something went wrong. Please try again in a moment. <span id="api-error-detail" style="font-size:13px;display:block;margin-top:6px;opacity:0.8;"></span></div>
+    <div class="api-error" id="api-error">Something went wrong. Please try again in a moment.</div>
 
     <button class="submit-btn" id="submit-btn" onclick="window.runDiagnostic()">Run My Findability Diagnostic →</button>
     <p class="submit-note">Uses an advanced AI model to simulate how a skilled recruiter would evaluate the discoverability of your professional attributes. Not a live search — a calibrated judgment.</p>
@@ -652,6 +678,10 @@
     <div class="fade-in">
       <div class="results-eyebrow">Attribute Footprint Diagnostic — Complete</div>
       <div class="results-query" id="results-query"></div>
+      <a id="google-search-link" href="#" target="_blank" rel="noopener noreferrer" 
+         style="display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--accent);text-decoration:none;margin-top:-8px;margin-bottom:16px;font-weight:600;">
+        <span>↗</span> Try this search on Google
+      </a>
     </div>
     <div class="tier-result fade-in">
       <div class="tier-result-header" id="result-header">
@@ -675,7 +705,7 @@
   </div>
 
   <footer>
-    <div class="footer-brand"><strong>The Career Cantina</strong> · <a href="https://thecareercantina.com" style="color:var(--accent);text-decoration:none;">thecareercantina.com</a> · <a href="/cdn-cgi/l/email-protection#5324322a3d3613273b3630322136362130323d273a3d327d303c3e" style="color:var(--accent);text-decoration:none;">Wayne Rainey</a></div>
+    <div class="footer-brand"><strong>The Career Cantina</strong> · <a href="https://thecareercantina.com" style="color:var(--accent);text-decoration:none;">thecareercantina.com</a> · <a href="https://thecareercantina.com" style="color:var(--accent);text-decoration:none;">Wayne Rainey</a></div>
     <div class="footer-note">One search. One mirror. What it shows is worth seeing.</div>
   </footer>
 
@@ -761,10 +791,7 @@
       });
 
       const data = await response.json();
-      if (!response.ok || !data.content?.[0]?.text) {
-        const msg = data?.error?.message || data?.error || JSON.stringify(data).slice(0, 200);
-        throw new Error(`${response.status}: ${msg}`);
-      }
+      if (!response.ok || !data.content?.[0]?.text) throw new Error('API error');
 
       await new Promise(r => setTimeout(r, 5800));
 
@@ -776,7 +803,6 @@
       document.getElementById('loading-wrap').classList.remove('show');
       document.getElementById('submit-btn').disabled = false;
       document.getElementById('api-error').classList.add('show');
-      document.getElementById('api-error-detail').textContent = err.message;
       console.error(err);
     }
   }
@@ -784,8 +810,11 @@
   function renderResult(result) {
     document.getElementById('loading-wrap').classList.remove('show');
 
+    const queryText = result.query;
     document.getElementById('results-query').innerHTML =
-      `<strong>Search constructed:</strong> ${result.query}`;
+      `<strong>Search constructed from your attributes:</strong> ${queryText}`;
+    document.getElementById('google-search-link').href =
+      'https://www.google.com/search?q=' + encodeURIComponent(queryText);
 
     const tiers = {
       rich:    { icon: '◉', label: 'RICH',    cls: 'rich' },
@@ -835,7 +864,6 @@
     document.getElementById('api-error').classList.remove('show');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
 </script>
 </body>
 </html>
