@@ -501,9 +501,8 @@
     </button>
     <div class="accordion-body" id="accordion-sample">
       <div class="sample-profile">
-        <div class="sample-header">Composite Profile — Alex Morgan · Regulatory Affairs Specialist · Medical Devices · Bay Area</div>
+        <div class="sample-header">Composite Profile — Regulatory Affairs Specialist · Medical Devices · Bay Area</div>
         <div class="sample-identity">
-          <div class="sample-name">Alex Morgan</div>
           <div class="sample-title">Regulatory Affairs Specialist · Medical Devices · San Francisco Bay Area · RAC certified</div>
         </div>
         <div class="sample-scenarios">
@@ -631,7 +630,7 @@
 
     <div class="api-error" id="api-error">Something went wrong. Please try again in a moment. <span id="api-error-detail" style="font-size:13px;display:block;margin-top:6px;opacity:0.8;"></span></div>
 
-    <button class="submit-btn" id="submit-btn">Run My Findability Diagnostic →</button>
+    <button class="submit-btn" id="submit-btn" onclick="window.runDiagnostic()">Run My Findability Diagnostic →</button>
     <p class="submit-note">Uses an advanced AI model to simulate how a skilled recruiter would evaluate the discoverability of your professional attributes. Not a live search — a calibrated judgment.</p>
   </div>
 
@@ -837,7 +836,6 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  document.getElementById('submit-btn').addEventListener('click', runDiagnostic);
 </script>
 </body>
 </html>
