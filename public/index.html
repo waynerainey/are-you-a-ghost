@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Are You a Ghost? — The Career Cantina</title>
+<meta name="description" content="You've Googled yourself for vanity. This is what a recruiter Googles instead.">
+<meta name="author" content="Wayne Rainey, The Career Cantina">
+<meta property="og:title" content="Are You a Ghost? — The Career Cantina">
+<meta property="og:description" content="You've Googled yourself for vanity. This is what a recruiter Googles instead.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://are-you-a-ghost.netlify.app">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Are You a Ghost? — The Career Cantina">
+<meta name="twitter:description" content="You've Googled yourself for vanity. This is what a recruiter Googles instead.">
+<meta name="keywords" content="recruiter search, findability, LinkedIn, job search, career, discoverability, Wayne Rainey, Career Cantina">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Sans+3:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8f6f1;
+    --surface: #ffffff;
+    --surface2: #f2efe9;
+    --border: #ddd9d0;
+    --border-dark: #b8b3a8;
+    --text: #1a1916;
+    --text-muted: #5a5650;
+    --text-dim: #9a9590;
+    --accent: #8b5e1a;
+    --accent-bg: #fdf3e0;
+    --accent-border: #e8c97a;
+    --rich: #1a7a3a;
+    --rich-bg: #edf7f1;
+    --rich-border: #a8d9b8;
+    --partial: #1a5fa0;
+    --partial-bg: #edf3fc;
+    --partial-border: #a8c8e8;
+    --thin: #b85000;
+    --thin-bg: #fef3eb;
+    --thin-border: #f0b888;
+    --ghost: #a01818;
+    --ghost-bg: #fdeeed;
+    --ghost-border: #e8a8a8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  header {
+    padding: 36px 0 28px;
+    border-bottom: 2px solid var(--text);
+    margin-bottom: 32px;
+  }
+
+  .header-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.1rem, 8vw, 3rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .header-sub {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+
+  .header-meta {
+    font-size: 13px;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    line-height: 1.7;
+  }
+
+  .calibration {
+    background: var(--accent-bg);
+    border: 1px solid var(--accent-border);
+    border-left: 4px solid var(--accent);
+    padding: 18px 20px;
+    margin-bottom: 28px;
+    border-radius: 3px;
+  }
+
+  .calibration-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .calibration p { font-size: 16px; line-height: 1.7; color: var(--text-muted); }
+
+  .accordion-wrap {
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .accordion-trigger {
+    width: 100%;
+    background: var(--surface);
+    border: none;
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: left;
+    gap: 12px;
+    transition: background 0.15s;
+  }
+
+  .accordion-trigger:hover { background: var(--surface2); }
+  .accordion-trigger .chevron { font-size: 16px; transition: transform 0.25s; color: var(--accent); flex-shrink: 0; }
+  .accordion-trigger.open .chevron { transform: rotate(180deg); }
+
+  .accordion-body { display: none; border-top: 1px solid var(--border); background: var(--surface); }
+  .accordion-body.open { display: block; }
+
+  .tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+  @media (max-width: 500px) { .tier-grid { grid-template-columns: 1fr; } }
+
+  .tier-card { padding: 20px 18px; background: var(--surface); }
+
+  .tier-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+
+  .tier-badge.rich    { background: var(--rich-bg);    color: var(--rich);    border: 1px solid var(--rich-border); }
+  .tier-badge.partial { background: var(--partial-bg); color: var(--partial); border: 1px solid var(--partial-border); }
+  .tier-badge.thin    { background: var(--thin-bg);    color: var(--thin);    border: 1px solid var(--thin-border); }
+  .tier-badge.ghost   { background: var(--ghost-bg);   color: var(--ghost);   border: 1px solid var(--ghost-border); }
+
+  .tier-card h4 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .tier-definition { font-size: 14px; color: var(--text-dim); font-style: italic; margin-bottom: 8px; line-height: 1.5; }
+  .tier-description { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px; }
+  .tier-move { font-size: 14px; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 10px; line-height: 1.6; }
+  .tier-move strong { color: var(--accent); }
+
+  .sample-profile { padding: 20px 18px; }
+  .sample-header { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+
+  .sample-identity { background: var(--surface2); border: 1px solid var(--border); padding: 12px 16px; margin-bottom: 14px; border-radius: 3px; }
+  .sample-name { font-family: 'Instrument Serif', serif; font-size: 19px; color: var(--text); margin-bottom: 2px; }
+  .sample-title { font-size: 14px; color: var(--text-muted); }
+
+  .sample-scenarios { display: grid; gap: 8px; }
+  .sample-scenario { border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+
+  .sample-scenario-header {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface2);
+    flex-wrap: wrap;
+  }
+
+  .sample-scenario-header .label { font-size: 14px; color: var(--text-muted); }
+
+  .source-dots { display: flex; gap: 5px; margin-left: auto; }
+  .source-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); border: 1px solid var(--border-dark); }
+  .source-dot.on.rich    { background: var(--rich);    border-color: var(--rich); }
+  .source-dot.on.partial { background: var(--partial); border-color: var(--partial); }
+  .source-dot.on.thin    { background: var(--thin);    border-color: var(--thin); }
+
+  .sample-scenario-body { padding: 12px 14px; font-size: 15px; color: var(--text-muted); line-height: 1.65; }
+
+  .form-section { margin-bottom: 48px; }
+  .section-heading { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 8px; margin-top: 32px; }
+  .section-sub { font-size: 16px; color: var(--text-muted); line-height: 1.6; margin-bottom: 22px; }
+
+  .madlib-sentence {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 3px;
+    padding: 22px 20px;
+    margin-bottom: 26px;
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.05rem, 3vw, 1.28rem);
+    line-height: 2.1;
+    color: var(--text-muted);
+  }
+
+  .madlib-sentence em {
+    color: var(--accent);
+    font-style: normal;
+    border-bottom: 2px solid var(--accent-border);
+    padding-bottom: 1px;
+  }
+
+  .field-group { display: grid; gap: 18px; margin-bottom: 26px; }
+  .field-wrap { display: flex; flex-direction: column; gap: 6px; }
+
+  .field-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .field-hint { font-size: 13px; font-weight: 400; color: var(--text-dim); font-style: italic; }
+
+  .field-input {
+    background: var(--surface);
+    border: 1.5px solid var(--border-dark);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 17px;
+    padding: 13px 15px;
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+
+  .field-input::placeholder { color: var(--text-dim); }
+  .field-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,94,26,0.1); }
+  .field-input.error { border-color: var(--ghost); }
+
+  .field-error { font-size: 14px; color: var(--ghost); display: none; }
+  .field-error.show { display: block; }
+
+  .sources-display { margin-bottom: 26px; }
+  .sources-label { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+  .sources-list { display: grid; gap: 5px; }
+
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 11px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 15px;
+    color: var(--text-muted);
+    transition: all 0.25s;
+  }
+
+  .source-item.checking { border-color: var(--accent); background: var(--accent-bg); color: var(--text); }
+  .source-item.done { background: var(--surface2); color: var(--text-dim); }
+
+  .source-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--surface2); border: 1.5px solid var(--border-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+    color: var(--text-muted); transition: all 0.25s;
+  }
+
+  .source-item.checking .source-num { background: var(--accent); border-color: var(--accent); color: white; animation: pulse 1s infinite; }
+  .source-item.done .source-num { background: var(--surface2); color: var(--text-dim); border-color: var(--border); }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+  .source-name { font-weight: 600; flex: 1; }
+  .source-status { font-size: 13px; color: var(--text-dim); font-style: italic; }
+  .source-item.checking .source-status { color: var(--accent); font-style: normal; font-weight: 600; }
+
+  .api-error { display: none; background: var(--ghost-bg); border: 1px solid var(--ghost-border); padding: 14px 18px; border-radius: 3px; font-size: 16px; color: var(--ghost); margin-bottom: 18px; }
+  .api-error.show { display: block; }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    padding: 17px 28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s, transform 0.1s;
+    margin-bottom: 12px;
+    -webkit-appearance: none;
+  }
+
+  .submit-btn:hover:not(:disabled) { background: var(--accent); transform: translateY(-1px); }
+  .submit-btn:active:not(:disabled) { transform: translateY(0); }
+  .submit-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+  .submit-note { font-size: 14px; color: var(--text-dim); text-align: center; line-height: 1.6; }
+
+  .loading-wrap { display: none; margin-bottom: 36px; }
+  .loading-wrap.show { display: block; }
+  .loading-header { font-size: 17px; color: var(--text-muted); margin-bottom: 14px; }
+  .loading-header strong { color: var(--accent); }
+
+  #results { display: none; margin-bottom: 56px; }
+  #results.show { display: block; }
+
+  .results-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+
+  .results-query {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 24px;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .results-query strong { color: var(--text); font-weight: 600; }
+
+  .tier-result { border: 1.5px solid var(--border-dark); border-radius: 4px; overflow: hidden; margin-bottom: 20px; }
+
+  .tier-result-header { padding: 22px 22px; display: flex; align-items: center; gap: 16px; }
+  .tier-result-header.rich    { background: var(--rich-bg);    border-bottom: 1px solid var(--rich-border); }
+  .tier-result-header.partial { background: var(--partial-bg); border-bottom: 1px solid var(--partial-border); }
+  .tier-result-header.thin    { background: var(--thin-bg);    border-bottom: 1px solid var(--thin-border); }
+  .tier-result-header.ghost   { background: var(--ghost-bg);   border-bottom: 1px solid var(--ghost-border); }
+
+  .tier-result-icon { font-size: 34px; line-height: 1; flex-shrink: 0; }
+
+  .tier-result-name { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+  .tier-result-name.rich    { color: var(--rich); }
+  .tier-result-name.partial { color: var(--partial); }
+  .tier-result-name.thin    { color: var(--thin); }
+  .tier-result-name.ghost   { color: var(--ghost); }
+
+  .tier-result-sub { font-size: 15px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+
+  .tier-result-body { padding: 22px; background: var(--surface); }
+
+  .result-sources-label { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+
+  .result-source-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 22px; }
+
+  .source-chip {
+    font-size: 14px; padding: 6px 12px; border-radius: 3px;
+    border: 1px solid var(--border); color: var(--text-muted);
+    background: var(--surface2); font-weight: 500;
+  }
+
+  .source-chip.found    { border-color: var(--rich-border);    color: var(--rich);    background: var(--rich-bg); }
+  .source-chip.uncertain { border-color: var(--thin-border);   color: var(--thin);    background: var(--thin-bg); }
+
+  .result-analysis { font-size: 17px; line-height: 1.75; color: var(--text-muted); margin-bottom: 22px; white-space: pre-wrap; }
+
+  .next-move {
+    background: var(--accent-bg);
+    border: 1px solid var(--accent-border);
+    border-left: 4px solid var(--accent);
+    padding: 16px 18px;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .next-move-label { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 7px; }
+  .next-move p { font-size: 16px; color: var(--text-muted); line-height: 1.65; }
+
+  .reset-btn {
+    background: transparent;
+    border: 1.5px solid var(--border-dark);
+    color: var(--text-muted);
+    padding: 13px 18px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 100%;
+    margin-top: 8px;
+    transition: all 0.15s;
+  }
+
+  .reset-btn:hover { border-color: var(--text); color: var(--text); background: var(--surface2); }
+
+  footer {
+    border-top: 2px solid var(--text);
+    padding: 26px 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .footer-brand { font-size: 15px; color: var(--text-muted); }
+  .footer-brand strong { color: var(--text); }
+  .footer-note { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { animation: fadeUp 0.35s ease forwards; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="header-eyebrow">The Career Cantina · Findability Diagnostic</div>
+    <h1>Are You a <em>Ghost?</em></h1>
+    <p class="header-sub">A recruiter doesn't start with your resume. They start with a search. This tool simulates what that search finds — and where you rank.</p>
+    <div class="header-meta">
+      6 sources checked &nbsp;·&nbsp; 4 tiers: Rich / Partial / Thin / Ghost &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection#daadbba3b4bf9aaeb2bfb9bba8bfbfa8b9bbb4aeb3b4bbf4b9b5b7" style="color:var(--accent);text-decoration:none;">Wayne Rainey · The Career Cantina</a>
+    </div>
+  </header>
+
+  <div class="calibration">
+    <div class="calibration-label">Calibration Notice — Read This First</div>
+    <p>This tool runs one search, the way one recruiter might look for someone like you. Recruiters search differently. Tools search differently. Networks find people that searches never would. A Ghost result here means you're hard to find <em>this way, on this day, with these inputs</em> — not that you're invisible everywhere. What it does mean is worth paying attention to. Most tools that evaluate you don't show you how. This one does. That's the point.</p>
+  </div>
+
+  <!-- Tier Reference -->
+  <div class="accordion-wrap">
+    <button class="accordion-trigger" onclick="toggleAccordion('tiers')" id="btn-tiers">
+      <span>Reference: The Four Findability Tiers</span>
+      <span class="chevron" id="chevron-tiers">▼</span>
+    </button>
+    <div class="accordion-body" id="accordion-tiers">
+      <div class="tier-grid">
+        <div class="tier-card">
+          <div class="tier-badge rich">Rich</div>
+          <h4>Found Everywhere</h4>
+          <p class="tier-definition">Found across 4+ independent sources with corroborated detail.</p>
+          <p class="tier-description">Multiple sources confirm your professional identity. A recruiter can build a picture of you before they ever reach out. You have ambient discoverability — you exist in the system whether or not you're actively looking.</p>
+          <div class="tier-move"><strong>Your position:</strong> Maintain and expand. Focus on corroboration quality, not just quantity.</div>
+        </div>
+        <div class="tier-card">
+          <div class="tier-badge partial">Partial</div>
+          <h4>Present but Fragmented</h4>
+          <p class="tier-definition">Found in 2–3 sources. Some corroboration exists but gaps remain.</p>
+          <p class="tier-description">You exist in the system but aren't fully corroborated. A recruiter who finds you has to do extra work to verify. One or two external placements closes the gap.</p>
+          <div class="tier-move"><strong>One move:</strong> Get your name placed by a third party — a speaker bio, event program, company directory, or published quote.</div>
+        </div>
+        <div class="tier-card">
+          <div class="tier-badge thin">Thin</div>
+          <h4>Present but Unpersuasive</h4>
+          <p class="tier-definition">Found in 1 source only, or name confirmed without professional context.</p>
+          <p class="tier-description">You're online but your professional story isn't. In an AI-filtered hiring environment, thin profiles are bypassed before a human ever sees them. Most urgent tier to move out of.</p>
+          <div class="tier-move"><strong>One move:</strong> Create one external proof deposit — a published article, conference listing, or professional association roster.</div>
+        </div>
+        <div class="tier-card">
+          <div class="tier-badge ghost">Ghost</div>
+          <h4>Essentially Unfindable</h4>
+          <p class="tier-definition">No usable profile found across any of the six sources checked.</p>
+          <p class="tier-description">Complete invisibility is a structural disadvantage when hiring starts with a search. Building even a minimal presence in one authoritative source changes your situation immediately.</p>
+          <div class="tier-move"><strong>One move:</strong> A complete LinkedIn profile is the minimum viable footprint. It's the floor, not the ceiling.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sample Profile -->
+  <div class="accordion-wrap" style="margin-bottom:32px">
+    <button class="accordion-trigger" onclick="toggleAccordion('sample')" id="btn-sample">
+      <span>Sample Profile: See what each tier looks like in practice</span>
+      <span class="chevron" id="chevron-sample">▼</span>
+    </button>
+    <div class="accordion-body" id="accordion-sample">
+      <div class="sample-profile">
+        <div class="sample-header">Composite Profile — Alex Morgan · Regulatory Affairs Specialist · Medical Devices · Bay Area</div>
+        <div class="sample-identity">
+          <div class="sample-name">Alex Morgan</div>
+          <div class="sample-title">Regulatory Affairs Specialist · Medical Devices · San Francisco Bay Area · RAC certified</div>
+        </div>
+        <div class="sample-scenarios">
+          <div class="sample-scenario">
+            <div class="sample-scenario-header">
+              <div class="tier-badge rich" style="margin:0">Rich</div>
+              <div class="label">Found in 5 of 6 sources</div>
+              <div class="source-dots">
+                <div class="source-dot on rich"></div><div class="source-dot on rich"></div><div class="source-dot on rich"></div>
+                <div class="source-dot on rich"></div><div class="source-dot on rich"></div><div class="source-dot"></div>
+              </div>
+            </div>
+            <div class="sample-scenario-body">LinkedIn (complete, active), ZoomInfo listing with corroborated title and company, company bio page with role description, named as a panelist in a RAPS conference program, mentioned in a colleague's post about a 510(k) clearance. A recruiter can verify identity, role, domain, and community participation before ever reaching out.</div>
+          </div>
+          <div class="sample-scenario">
+            <div class="sample-scenario-header">
+              <div class="tier-badge partial" style="margin:0">Partial</div>
+              <div class="label">Found in 2 of 6 sources</div>
+              <div class="source-dots">
+                <div class="source-dot on partial"></div><div class="source-dot on partial"></div>
+                <div class="source-dot"></div><div class="source-dot"></div><div class="source-dot"></div><div class="source-dot"></div>
+              </div>
+            </div>
+            <div class="sample-scenario-body">LinkedIn exists but is thin. ZoomInfo has a cached record from a previous employer. No company bio, no event mentions, no network activity. A recruiter finds Alex but has to do verification work. Some will. Many won't.</div>
+          </div>
+          <div class="sample-scenario">
+            <div class="sample-scenario-header">
+              <div class="tier-badge thin" style="margin:0">Thin</div>
+              <div class="label">Found in 1 of 6 sources</div>
+              <div class="source-dots">
+                <div class="source-dot on thin"></div><div class="source-dot"></div>
+                <div class="source-dot"></div><div class="source-dot"></div><div class="source-dot"></div><div class="source-dot"></div>
+              </div>
+            </div>
+            <div class="sample-scenario-body">LinkedIn only — sparse, no activity, no visible connections. Name appears nowhere else online. An AI sourcing tool that looks beyond LinkedIn finds nothing to corroborate. Alex exists in the directory. Alex's professional story does not.</div>
+          </div>
+          <div class="sample-scenario">
+            <div class="sample-scenario-header">
+              <div class="tier-badge ghost" style="margin:0">Ghost</div>
+              <div class="label">Found in 0 of 6 sources</div>
+              <div class="source-dots">
+                <div class="source-dot"></div><div class="source-dot"></div>
+                <div class="source-dot"></div><div class="source-dot"></div><div class="source-dot"></div><div class="source-dot"></div>
+              </div>
+            </div>
+            <div class="sample-scenario-body">No LinkedIn, no aggregator record, no company mention, no event programs, no network references, no public records confirmation. Alex does not exist as far as any search-based hiring system is concerned. The next job will come through a direct personal referral — or not at all.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="form-section">
+    <div class="section-heading">Build Your Search Profile</div>
+    <p class="section-sub">Fill in the five fields below. We'll construct the search a recruiter would actually run — then simulate what comes back — and tell you where you rank.</p>
+
+    <div class="madlib-sentence">
+      Find me a <em id="ml-title">your title</em> in <em id="ml-domain">your domain</em> near <em id="ml-geo">your location</em> with <em id="ml-credential">your credential</em> who has left a footprint at <em id="ml-proof">your proof deposit</em>.
+    </div>
+
+    <div class="field-group">
+      <div class="field-wrap">
+        <div class="field-label">Your primary title <span class="field-hint">Market-facing — what a recruiter would search for</span></div>
+        <input type="text" class="field-input" id="field-title" placeholder="e.g. Regulatory Affairs Manager" maxlength="80" oninput="updateMadlib(this.value,'ml-title','your title')">
+        <div class="field-error" id="err-title">Please enter your primary title</div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Your core domain <span class="field-hint">Industry or field — 1 to 3 words</span></div>
+        <input type="text" class="field-input" id="field-domain" placeholder="e.g. Medical Devices, Fintech, Supply Chain" maxlength="60" oninput="updateMadlib(this.value,'ml-domain','your domain')">
+        <div class="field-error" id="err-domain">Please enter your core domain</div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Your geography <span class="field-hint">Metro area level</span></div>
+        <input type="text" class="field-input" id="field-geo" placeholder="e.g. San Francisco Bay Area, Boston, Chicago" maxlength="60" oninput="updateMadlib(this.value,'ml-geo','your location')">
+        <div class="field-error" id="err-geo">Please enter your geography</div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Your highest-trust credential <span class="field-hint">The thing that would appear in a database somewhere</span></div>
+        <input type="text" class="field-input" id="field-credential" placeholder="e.g. PMP, CPA, RAC, published author, PE license" maxlength="80" oninput="updateMadlib(this.value,'ml-credential','your credential')">
+        <div class="field-error" id="err-credential">Please enter a credential</div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">One proof deposit outside LinkedIn <span class="field-hint">Type "none" if you don't have one — that's diagnostic too</span></div>
+        <input type="text" class="field-input" id="field-proof" placeholder="e.g. company bio page, conference speaker listing, published article" maxlength="120" oninput="updateMadlib(this.value,'ml-proof','your proof deposit')">
+        <div class="field-error" id="err-proof">Please enter a proof deposit, or type "none"</div>
+      </div>
+    </div>
+
+    <div class="sources-display">
+      <div class="sources-label">The 6 sources this search checks — in order</div>
+      <div class="sources-list">
+        <div class="source-item"><div class="source-num">1</div><div class="source-name">LinkedIn</div><div class="source-status">Necessary but not sufficient</div></div>
+        <div class="source-item"><div class="source-num">2</div><div class="source-name">ZoomInfo / RocketReach / ContactOut</div><div class="source-status">Aggregators that corroborate identity</div></div>
+        <div class="source-item"><div class="source-num">3</div><div class="source-name">Company or org website</div><div class="source-status">Team pages, staff directories, speaker bios</div></div>
+        <div class="source-item"><div class="source-num">4</div><div class="source-name">Event programs & community mentions</div><div class="source-status">Conference listings, org rosters</div></div>
+        <div class="source-item"><div class="source-num">5</div><div class="source-name">Your network's activity</div><div class="source-status">Being named in someone else's post or comment</div></div>
+        <div class="source-item"><div class="source-num">6</div><div class="source-name">Public records aggregators</div><div class="source-status">Spokeo, ClustrMaps — confirms existence, not story</div></div>
+      </div>
+    </div>
+
+    <div class="api-error" id="api-error">Something went wrong. Please try again in a moment.</div>
+
+    <button class="submit-btn" id="submit-btn" onclick="runDiagnostic()">Run My Findability Diagnostic →</button>
+    <p class="submit-note">Uses an advanced AI model to simulate how a skilled recruiter would evaluate your external footprint. Not a live search — a calibrated judgment.</p>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-wrap" id="loading-wrap">
+    <div class="loading-header">Checking sources for <strong id="loading-name">you</strong>…</div>
+    <div class="sources-list">
+      <div class="source-item" id="lsrc-1"><div class="source-num">1</div><div class="source-name">LinkedIn</div><div class="source-status" id="lstatus-1">queued</div></div>
+      <div class="source-item" id="lsrc-2"><div class="source-num">2</div><div class="source-name">ZoomInfo / RocketReach / ContactOut</div><div class="source-status" id="lstatus-2">queued</div></div>
+      <div class="source-item" id="lsrc-3"><div class="source-num">3</div><div class="source-name">Company or org website</div><div class="source-status" id="lstatus-3">queued</div></div>
+      <div class="source-item" id="lsrc-4"><div class="source-num">4</div><div class="source-name">Event programs & community mentions</div><div class="source-status" id="lstatus-4">queued</div></div>
+      <div class="source-item" id="lsrc-5"><div class="source-num">5</div><div class="source-name">Your network's activity</div><div class="source-status" id="lstatus-5">queued</div></div>
+      <div class="source-item" id="lsrc-6"><div class="source-num">6</div><div class="source-name">Public records aggregators</div><div class="source-status" id="lstatus-6">queued</div></div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results">
+    <div class="fade-in">
+      <div class="results-eyebrow">Diagnostic Complete</div>
+      <div class="results-query" id="results-query"></div>
+    </div>
+    <div class="tier-result fade-in">
+      <div class="tier-result-header" id="result-header">
+        <div class="tier-result-icon" id="result-icon"></div>
+        <div>
+          <div class="tier-result-name" id="result-tier-name"></div>
+          <div class="tier-result-sub" id="result-tier-sub"></div>
+        </div>
+      </div>
+      <div class="tier-result-body">
+        <div class="result-sources-label">Source-by-source assessment</div>
+        <div class="result-source-chips" id="result-chips"></div>
+        <div class="result-analysis" id="result-analysis"></div>
+        <div class="next-move">
+          <div class="next-move-label">The One Move</div>
+          <p id="result-next-move"></p>
+        </div>
+      </div>
+    </div>
+    <button class="reset-btn" onclick="resetTool()">← Run Another Search</button>
+  </div>
+
+  <footer>
+    <div class="footer-brand"><strong>The Career Cantina</strong> · <a href="https://thecareercantina.com" style="color:var(--accent);text-decoration:none;">thecareercantina.com</a> · <a href="/cdn-cgi/l/email-protection#5324322a3d3613273b3630322136362130323d273a3d327d303c3e" style="color:var(--accent);text-decoration:none;">Wayne Rainey</a></div>
+    <div class="footer-note">One search. One mirror. What it shows is worth seeing.</div>
+  </footer>
+
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function toggleAccordion(id) {
+    const body = document.getElementById('accordion-' + id);
+    const chevron = document.getElementById('chevron-' + id);
+    const trigger = document.getElementById('btn-' + id);
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    trigger.classList.toggle('open', !isOpen);
+  }
+
+  function updateMadlib(value, elId, placeholder) {
+    document.getElementById(elId).textContent = value.trim() || placeholder;
+  }
+
+  function sanitize(str) {
+    return str
+      .replace(/[<>{}[\]\\]/g, '')
+      .replace(/ignore (previous|all|above|prior)/gi, '')
+      .replace(/system\s*prompt/gi, '')
+      .replace(/you are (now|a|an)/gi, '')
+      .replace(/assistant:/gi, '')
+      .trim().slice(0, 150);
+  }
+
+  function validateInputs() {
+    const fields = ['title','domain','geo','credential','proof'];
+    let valid = true;
+    fields.forEach(f => {
+      const val = document.getElementById('field-' + f).value.trim();
+      document.getElementById('err-' + f).classList.toggle('show', !val);
+      document.getElementById('field-' + f).classList.toggle('error', !val);
+      if (!val) valid = false;
+    });
+    return valid;
+  }
+
+  async function animateSources() {
+    const gaps = [0, 900, 1000, 1000, 1000, 800];
+    for (let i = 1; i <= 6; i++) {
+      await new Promise(r => setTimeout(r, gaps[i-1]));
+      document.getElementById('lsrc-' + i).classList.add('checking');
+      document.getElementById('lstatus-' + i).textContent = 'checking…';
+      if (i > 1) {
+        document.getElementById('lsrc-' + (i-1)).classList.remove('checking');
+        document.getElementById('lsrc-' + (i-1)).classList.add('done');
+        document.getElementById('lstatus-' + (i-1)).textContent = 'checked ✓';
+      }
+    }
+  }
+
+  async function runDiagnostic() {
+    if (!validateInputs()) return;
+
+    const title      = sanitize(document.getElementById('field-title').value);
+    const domain     = sanitize(document.getElementById('field-domain').value);
+    const geo        = sanitize(document.getElementById('field-geo').value);
+    const credential = sanitize(document.getElementById('field-credential').value);
+    const proof      = sanitize(document.getElementById('field-proof').value);
+
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('api-error').classList.remove('show');
+    document.getElementById('loading-wrap').classList.add('show');
+    document.getElementById('results').classList.remove('show');
+    document.getElementById('loading-name').textContent = `a ${title} in ${domain}`;
+    document.getElementById('loading-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    animateSources();
+
+    const systemPrompt = `You are a senior technical recruiter with 20+ years of sourcing experience. You simulate how sophisticated recruiters and AI sourcing tools evaluate a professional's external digital footprint — outside LinkedIn's walled garden.\n\nRespond ONLY with valid JSON. No preamble, no markdown fences, no explanation outside the JSON.\n\nRULES:\n- Be statistically honest. Most professionals land in Thin or Partial. Do not default to optimistic results.\n- Weight the proof deposit heavily. "none" or absent strongly indicates Ghost or Thin.\n- Do not hallucinate specific URLs or confirm specific pages exist.\n- Reference the person's specific title, domain, credential, and proof deposit in your analysis.\n- The analysis should read like a recruiter's candid internal notes, not coaching advice.\n\nJSON structure:\n{\n  "query": "The Boolean-style search string built from their inputs",\n  "tier": "rich|partial|thin|ghost",\n  "tier_reason": "One honest sentence explaining the tier assignment",\n  "sources": {\n    "linkedin": "likely_present|uncertain|likely_absent",\n    "aggregators": "likely_present|uncertain|likely_absent",\n    "company_site": "likely_present|uncertain|likely_absent",\n    "event_programs": "likely_present|uncertain|likely_absent",\n    "network_activity": "likely_present|uncertain|likely_absent",\n    "public_records": "likely_present|uncertain|likely_absent"\n  },\n  "analysis": "3-4 sentences. What does this footprint look like to a recruiter? What does the proof deposit signal? Be direct and specific.",\n  "next_move": "The single most impactful move this specific person could make to improve their tier. Reference their inputs. No generic advice."\n}`;
+
+    const userPrompt = `Assess the external findability of this professional:\n\nTitle: ${title}\nDomain: ${domain}\nGeography: ${geo}\nCredential: ${credential}\nProof deposit outside LinkedIn: ${proof}\n\nBuild the search query and assign a findability tier.`;
+
+    try {
+      const response = await fetch('/api/diagnose', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ systemPrompt, userPrompt })
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data.content?.[0]?.text) throw new Error('API error');
+
+      await new Promise(r => setTimeout(r, 5800));
+
+      const clean = data.content[0].text.replace(/```json|```/g, '').trim();
+      const result = JSON.parse(clean);
+      renderResult(result);
+
+    } catch (err) {
+      document.getElementById('loading-wrap').classList.remove('show');
+      document.getElementById('submit-btn').disabled = false;
+      document.getElementById('api-error').classList.add('show');
+      console.error(err);
+    }
+  }
+
+  function renderResult(result) {
+    document.getElementById('loading-wrap').classList.remove('show');
+
+    document.getElementById('results-query').innerHTML =
+      `<strong>Search constructed:</strong> ${result.query}`;
+
+    const tiers = {
+      rich:    { icon: '◉', label: 'RICH',    cls: 'rich' },
+      partial: { icon: '◎', label: 'PARTIAL', cls: 'partial' },
+      thin:    { icon: '○', label: 'THIN',    cls: 'thin' },
+      ghost:   { icon: '◌', label: 'GHOST',   cls: 'ghost' }
+    };
+
+    const tier = tiers[result.tier] || tiers.thin;
+    document.getElementById('result-header').className = 'tier-result-header ' + tier.cls;
+    document.getElementById('result-icon').textContent = tier.icon;
+    document.getElementById('result-tier-name').textContent = tier.label;
+    document.getElementById('result-tier-name').className = 'tier-result-name ' + tier.cls;
+    document.getElementById('result-tier-sub').textContent = result.tier_reason;
+
+    const sourceLabels = {
+      linkedin: 'LinkedIn', aggregators: 'ZoomInfo / RocketReach',
+      company_site: 'Company / Org Site', event_programs: 'Event Programs',
+      network_activity: 'Network Activity', public_records: 'Public Records'
+    };
+
+    const chips = document.getElementById('result-chips');
+    chips.innerHTML = '';
+    Object.entries(result.sources).forEach(([key, val]) => {
+      const chip = document.createElement('div');
+      chip.className = 'source-chip' +
+        (val === 'likely_present' ? ' found' : val === 'uncertain' ? ' uncertain' : '');
+      chip.textContent = sourceLabels[key] +
+        (val === 'likely_present' ? ' ✓' : val === 'uncertain' ? ' ?' : ' —');
+      chips.appendChild(chip);
+    });
+
+    document.getElementById('result-analysis').textContent = result.analysis;
+    document.getElementById('result-next-move').textContent = result.next_move;
+    document.getElementById('results').classList.add('show');
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function resetTool() {
+    document.getElementById('results').classList.remove('show');
+    document.getElementById('submit-btn').disabled = false;
+    document.getElementById('loading-wrap').classList.remove('show');
+    for (let i = 1; i <= 6; i++) {
+      document.getElementById('ls

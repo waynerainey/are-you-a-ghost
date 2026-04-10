@@ -1,0 +1,11 @@
+{
+  "name": "are-you-a-ghost",
+  "version": "1.0.0",
+  "description": "Findability diagnostic tool by Wayne Rainey, The Career Cantina",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^2.0.0"
+  }
+}
