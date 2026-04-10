@@ -607,9 +607,27 @@
         <div class="field-error" id="err-geo">Please enter your geography</div>
       </div>
       <div class="field-wrap">
-        <div class="field-label">Your highest-trust credential <span class="field-hint">The thing that would appear in a database somewhere</span></div>
-        <input type="text" class="field-input" id="field-credential" placeholder="e.g. PMP, CPA, RAC, published author, PE license" maxlength="80" oninput="updateMadlib(this.value,'ml-credential','your credential')">
-        <div class="field-error" id="err-credential">Please enter a credential</div>
+        <div class="field-label">Your highest-trust credential <span class="field-hint">Type "none" if you don't have one — that's diagnostic too</span></div>
+        <input type="text" class="field-input" id="field-credential" placeholder="e.g. PMP, CPA, RAC, published author, PE license — or type none" maxlength="80" oninput="updateMadlib(this.value,'ml-credential','your credential')">
+        <div class="field-error" id="err-credential">Please enter a credential, or type "none"</div>
+        <details style="margin-top:8px">
+          <summary style="font-size:14px;color:var(--accent);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px">
+            <span style="font-size:11px">▶</span> What counts as a highest-trust credential?
+          </summary>
+          <div style="margin-top:10px;padding:14px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:3px;font-size:14px;color:var(--text-muted);line-height:1.75">
+            <p style="margin-bottom:8px">A highest-trust credential is something that required external validation to earn — a body outside of you confirmed your competency, identity, or contribution. The reason it matters is that it would appear in a database or registry that a recruiter or sourcing tool can find independently of your LinkedIn profile.</p>
+            <p style="margin-bottom:6px"><strong style="color:var(--text)">Examples:</strong></p>
+            <ul style="margin-left:16px;margin-bottom:10px">
+              <li>Professional certifications — PMP, CPA, PHR, SPHR, RAC, PE, CFA</li>
+              <li>Academic degrees or licenses that appear in public registries</li>
+              <li>Patents — your name is on a filed, searchable document</li>
+              <li>Published author — your name is on a book, journal, or indexed article</li>
+              <li>Regulatory filings — FDA 510(k), PMA, clinical trial registries</li>
+              <li>Bar admission, medical license, or other state-issued credential</li>
+            </ul>
+            <p><strong style="color:var(--text)">The test:</strong> Could someone find evidence of this credential without you telling them about it? If yes — it counts.</p>
+          </div>
+        </details>
       </div>
       <div class="field-wrap">
         <div class="field-label">One proof deposit outside LinkedIn <span class="field-hint">Type "none" if you don't have one — that's diagnostic too</span></div>
@@ -678,10 +696,13 @@
     <div class="fade-in">
       <div class="results-eyebrow">Attribute Footprint Diagnostic — Complete</div>
       <div class="results-query" id="results-query"></div>
-      <a id="google-search-link" href="#" target="_blank" rel="noopener noreferrer" 
-         style="display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--accent);text-decoration:none;margin-top:-8px;margin-bottom:16px;font-weight:600;">
-        <span>↗</span> Try this search on Google
-      </a>
+      <div style="margin-top:-4px;margin-bottom:20px;padding:14px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:3px;">
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:10px">Curious what this search actually returns? Click below to run it in Google and see who surfaces. The people who show up have the kind of external footprint this tool is measuring. The people who don't — don't. Optional, but instructive.</p>
+        <a id="google-search-link" href="#" target="_blank" rel="noopener noreferrer" 
+           style="display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--accent);text-decoration:none;font-weight:600;">
+          <span>↗</span> Try this search on Google
+        </a>
+      </div>
     </div>
     <div class="tier-result fade-in">
       <div class="tier-result-header" id="result-header">
@@ -778,7 +799,8 @@
 
     animateSources();
 
-    const systemPrompt = `You are a senior technical recruiter with 20+ years of sourcing experience. You simulate how sophisticated recruiters and AI sourcing tools evaluate a professional's external digital footprint — outside LinkedIn's walled garden.\n\nRespond ONLY with valid JSON. No preamble, no markdown fences, no explanation outside the JSON.\n\nRULES:\n- Be statistically honest. Most professionals land in Thin or Partial. Do not default to optimistic results.\n- Weight the proof deposit heavily. "none" or absent strongly indicates Ghost or Thin.\n- Do not hallucinate specific URLs or confirm specific pages exist.\n- Reference the person's specific title, domain, credential, and proof deposit in your analysis.\n- The analysis should read like a recruiter's candid internal notes, not coaching advice.
+    const systemPrompt = `You are a senior technical recruiter with 20+ years of sourcing experience. You simulate how sophisticated recruiters and AI sourcing tools evaluate a professional's external digital footprint — outside LinkedIn's walled garden.\n\nRespond ONLY with valid JSON. No preamble, no markdown fences, no explanation outside the JSON.\n\nRULES:\n- Be statistically honest. Most professionals land in Thin or Partial. Do not default to optimistic results.\n- Weight the proof deposit heavily. "none" or absent strongly indicates Ghost or Thin.
+- If credential is "none", note that the absence of an externally verifiable credential removes a key differentiator from the search string.\n- Do not hallucinate specific URLs or confirm specific pages exist.\n- Reference the person's specific title, domain, credential, and proof deposit in your analysis.\n- The analysis should read like a recruiter's candid internal notes, not coaching advice.
 - Frame results around the discoverability of the person's professional attributes — not a judgment of the person. e.g. "The attributes associated with this profile" not "You are" or "This person is".\n\nJSON structure:\n{\n  "query": "The Boolean-style search string built from their inputs",\n  "tier": "rich|partial|thin|ghost",\n  "tier_reason": "One honest sentence explaining the tier assignment",\n  "sources": {\n    "linkedin": "likely_present|uncertain|likely_absent",\n    "aggregators": "likely_present|uncertain|likely_absent",\n    "company_site": "likely_present|uncertain|likely_absent",\n    "event_programs": "likely_present|uncertain|likely_absent",\n    "network_activity": "likely_present|uncertain|likely_absent",\n    "public_records": "likely_present|uncertain|likely_absent"\n  },\n  "analysis": "3-4 sentences. What does this footprint look like to a recruiter? What does the proof deposit signal? Be direct and specific.",\n  "next_move": "The single most impactful move this specific person could make to improve their tier. Reference their inputs. No generic advice."\n}`;
 
     const userPrompt = `Assess the external findability of this professional:\n\nTitle: ${title}\nDomain: ${domain}\nGeography: ${geo}\nCredential: ${credential}\nProof deposit outside LinkedIn: ${proof}\n\nBuild the search query and assign a findability tier.`;
