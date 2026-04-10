@@ -448,8 +448,9 @@
   </header>
 
   <div class="calibration">
-    <div class="calibration-label">Calibration Notice — Read This First</div>
-    <p>This tool runs one search, the way one recruiter might look for someone like you. Recruiters search differently. Tools search differently. Networks find people that searches never would. A Ghost result here means you're hard to find <em>this way, on this day, with these inputs</em> — not that you're invisible everywhere. What it does mean is worth paying attention to. Most tools that evaluate you don't show you how. This one does. That's the point.</p>
+    <div class="calibration-label">What This Tool Is — Read This First</div>
+    <p>This tool simulates a <strong>cold sourcing search</strong> — a recruiter who has never heard of you, looking for someone with your background. It is not a verification check. If a recruiter already has your name and email, that is a different process entirely. This is what happens <em>before they ever know you exist.</em></p>
+    <p style="margin-top:12px">It runs one search, the way one recruiter might look. Recruiters search differently. Tools search differently. Networks find people that searches never would. A Ghost result means you are hard to find <em>this way, on this day, with these inputs</em> — not that you are invisible everywhere. Most tools that evaluate you do not show you how. This one does. That is the point.</p>
   </div>
 
   <!-- Tier Reference -->
@@ -557,8 +558,8 @@
 
   <!-- Form -->
   <div class="form-section">
-    <div class="section-heading">Build Your Search Profile</div>
-    <p class="section-sub">Fill in the five fields below. We'll construct the search a recruiter would actually run — then simulate what comes back — and tell you where you rank.</p>
+    <div class="section-heading">Describe Your Professional Attributes</div>
+    <p class="section-sub">Fill in the five fields below. We'll construct the search a recruiter would run looking for someone with your background — then simulate what comes back — and tell you how discoverable your professional attributes are.</p>
 
     <div class="madlib-sentence">
       Find me a <em id="ml-title">your title</em> in <em id="ml-domain">your domain</em> near <em id="ml-geo">your location</em> with <em id="ml-credential">your credential</em> who has left a footprint at <em id="ml-proof">your proof deposit</em>.
@@ -589,6 +590,30 @@
         <div class="field-label">One proof deposit outside LinkedIn <span class="field-hint">Type "none" if you don't have one — that's diagnostic too</span></div>
         <input type="text" class="field-input" id="field-proof" placeholder="e.g. company bio page, conference speaker listing, published article" maxlength="120" oninput="updateMadlib(this.value,'ml-proof','your proof deposit')">
         <div class="field-error" id="err-proof">Please enter a proof deposit, or type "none"</div>
+        <details style="margin-top:8px">
+          <summary style="font-size:14px;color:var(--accent);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px">
+            <span style="font-size:11px">▶</span> What counts as a proof deposit?
+          </summary>
+          <div style="margin-top:10px;padding:14px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:3px;font-size:14px;color:var(--text-muted);line-height:1.75">
+            <p style="margin-bottom:8px">A proof deposit is anywhere your name and professional role appear on the open web — placed by someone other than you, or on a platform a search engine can index.</p>
+            <p style="margin-bottom:6px"><strong style="color:var(--text)">Counts:</strong></p>
+            <ul style="margin-left:16px;margin-bottom:10px">
+              <li>Your name on your employer's team or leadership page</li>
+              <li>A conference speaker listing or event program</li>
+              <li>A published article, blog post, or quoted source</li>
+              <li>A professional association member roster</li>
+              <li>A patent, regulatory filing, or academic publication</li>
+              <li>A colleague mentioning you by name in a post</li>
+            </ul>
+            <p style="margin-bottom:6px"><strong style="color:var(--text)">Does not count:</strong></p>
+            <ul style="margin-left:16px">
+              <li>Your LinkedIn profile</li>
+              <li>Your connection count or endorsements</li>
+              <li>A resume you uploaded somewhere</li>
+              <li>A private group or members-only directory</li>
+            </ul>
+          </div>
+        </details>
       </div>
     </div>
 
@@ -604,15 +629,15 @@
       </div>
     </div>
 
-    <div class="api-error" id="api-error">Something went wrong. Please try again in a moment. <span id="api-error-detail" style="font-size:13px;display:block;margin-top:6px;opacity:0.8;"></span></div>
+    <div class="api-error" id="api-error">Something went wrong. Please try again in a moment.</div>
 
     <button class="submit-btn" id="submit-btn">Run My Findability Diagnostic →</button>
-    <p class="submit-note">Uses an advanced AI model to simulate how a skilled recruiter would evaluate your external footprint. Not a live search — a calibrated judgment.</p>
+    <p class="submit-note">Uses an advanced AI model to simulate how a skilled recruiter would evaluate the discoverability of your professional attributes. Not a live search — a calibrated judgment.</p>
   </div>
 
   <!-- Loading -->
   <div class="loading-wrap" id="loading-wrap">
-    <div class="loading-header">Checking sources for <strong id="loading-name">you</strong>…</div>
+    <div class="loading-header">Checking where your professional attributes surface for <strong id="loading-name">you</strong>…</div>
     <div class="sources-list">
       <div class="source-item" id="lsrc-1"><div class="source-num">1</div><div class="source-name">LinkedIn</div><div class="source-status" id="lstatus-1">queued</div></div>
       <div class="source-item" id="lsrc-2"><div class="source-num">2</div><div class="source-name">ZoomInfo / RocketReach / ContactOut</div><div class="source-status" id="lstatus-2">queued</div></div>
@@ -626,7 +651,7 @@
   <!-- Results -->
   <div id="results">
     <div class="fade-in">
-      <div class="results-eyebrow">Diagnostic Complete</div>
+      <div class="results-eyebrow">Attribute Footprint Diagnostic — Complete</div>
       <div class="results-query" id="results-query"></div>
     </div>
     <div class="tier-result fade-in">
@@ -638,11 +663,11 @@
         </div>
       </div>
       <div class="tier-result-body">
-        <div class="result-sources-label">Source-by-source assessment</div>
+        <div class="result-sources-label">Where your professional attributes surface</div>
         <div class="result-source-chips" id="result-chips"></div>
         <div class="result-analysis" id="result-analysis"></div>
         <div class="next-move">
-          <div class="next-move-label">The One Move</div>
+          <div class="next-move-label">The One Move to Improve Your Footprint</div>
           <p id="result-next-move"></p>
         </div>
       </div>
@@ -724,7 +749,8 @@
 
     animateSources();
 
-    const systemPrompt = `You are a senior technical recruiter with 20+ years of sourcing experience. You simulate how sophisticated recruiters and AI sourcing tools evaluate a professional's external digital footprint — outside LinkedIn's walled garden.\n\nRespond ONLY with valid JSON. No preamble, no markdown fences, no explanation outside the JSON.\n\nRULES:\n- Be statistically honest. Most professionals land in Thin or Partial. Do not default to optimistic results.\n- Weight the proof deposit heavily. "none" or absent strongly indicates Ghost or Thin.\n- Do not hallucinate specific URLs or confirm specific pages exist.\n- Reference the person's specific title, domain, credential, and proof deposit in your analysis.\n- The analysis should read like a recruiter's candid internal notes, not coaching advice.\n\nJSON structure:\n{\n  "query": "The Boolean-style search string built from their inputs",\n  "tier": "rich|partial|thin|ghost",\n  "tier_reason": "One honest sentence explaining the tier assignment",\n  "sources": {\n    "linkedin": "likely_present|uncertain|likely_absent",\n    "aggregators": "likely_present|uncertain|likely_absent",\n    "company_site": "likely_present|uncertain|likely_absent",\n    "event_programs": "likely_present|uncertain|likely_absent",\n    "network_activity": "likely_present|uncertain|likely_absent",\n    "public_records": "likely_present|uncertain|likely_absent"\n  },\n  "analysis": "3-4 sentences. What does this footprint look like to a recruiter? What does the proof deposit signal? Be direct and specific.",\n  "next_move": "The single most impactful move this specific person could make to improve their tier. Reference their inputs. No generic advice."\n}`;
+    const systemPrompt = `You are a senior technical recruiter with 20+ years of sourcing experience. You simulate how sophisticated recruiters and AI sourcing tools evaluate a professional's external digital footprint — outside LinkedIn's walled garden.\n\nRespond ONLY with valid JSON. No preamble, no markdown fences, no explanation outside the JSON.\n\nRULES:\n- Be statistically honest. Most professionals land in Thin or Partial. Do not default to optimistic results.\n- Weight the proof deposit heavily. "none" or absent strongly indicates Ghost or Thin.\n- Do not hallucinate specific URLs or confirm specific pages exist.\n- Reference the person's specific title, domain, credential, and proof deposit in your analysis.\n- The analysis should read like a recruiter's candid internal notes, not coaching advice.
+- Frame results around the discoverability of the person's professional attributes — not a judgment of the person. e.g. "The attributes associated with this profile" not "You are" or "This person is".\n\nJSON structure:\n{\n  "query": "The Boolean-style search string built from their inputs",\n  "tier": "rich|partial|thin|ghost",\n  "tier_reason": "One honest sentence explaining the tier assignment",\n  "sources": {\n    "linkedin": "likely_present|uncertain|likely_absent",\n    "aggregators": "likely_present|uncertain|likely_absent",\n    "company_site": "likely_present|uncertain|likely_absent",\n    "event_programs": "likely_present|uncertain|likely_absent",\n    "network_activity": "likely_present|uncertain|likely_absent",\n    "public_records": "likely_present|uncertain|likely_absent"\n  },\n  "analysis": "3-4 sentences. What does this footprint look like to a recruiter? What does the proof deposit signal? Be direct and specific.",\n  "next_move": "The single most impactful move this specific person could make to improve their tier. Reference their inputs. No generic advice."\n}`;
 
     const userPrompt = `Assess the external findability of this professional:\n\nTitle: ${title}\nDomain: ${domain}\nGeography: ${geo}\nCredential: ${credential}\nProof deposit outside LinkedIn: ${proof}\n\nBuild the search query and assign a findability tier.`;
 
@@ -736,10 +762,7 @@
       });
 
       const data = await response.json();
-      if (!response.ok || !data.content?.[0]?.text) {
-        const msg = data?.error?.message || data?.error || JSON.stringify(data);
-        throw new Error(`API error ${response.status}: ${msg}`);
-      }
+      if (!response.ok || !data.content?.[0]?.text) throw new Error('API error');
 
       await new Promise(r => setTimeout(r, 5800));
 
@@ -751,7 +774,6 @@
       document.getElementById('loading-wrap').classList.remove('show');
       document.getElementById('submit-btn').disabled = false;
       document.getElementById('api-error').classList.add('show');
-      document.getElementById('api-error-detail').textContent = err.message;
       console.error(err);
     }
   }
