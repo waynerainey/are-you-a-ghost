@@ -606,7 +606,7 @@
 
     <div class="api-error" id="api-error">Something went wrong. Please try again in a moment.</div>
 
-    <button class="submit-btn" id="submit-btn" onclick="runDiagnostic()">Run My Findability Diagnostic →</button>
+    <button class="submit-btn" id="submit-btn">Run My Findability Diagnostic →</button>
     <p class="submit-note">Uses an advanced AI model to simulate how a skilled recruiter would evaluate your external footprint. Not a live search — a calibrated judgment.</p>
   </div>
 
@@ -656,7 +656,7 @@
   </footer>
 
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   window.toggleAccordion = function(id) {
     const body = document.getElementById('accordion-' + id);
     const chevron = document.getElementById('chevron-' + id);
@@ -800,4 +800,14 @@
     document.getElementById('submit-btn').disabled = false;
     document.getElementById('loading-wrap').classList.remove('show');
     for (let i = 1; i <= 6; i++) {
-      document.getElementById('ls
+      document.getElementById('lsrc-' + i).classList.remove('checking', 'done');
+      document.getElementById('lstatus-' + i).textContent = 'queued';
+    }
+    document.getElementById('api-error').classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('submit-btn').addEventListener('click', runDiagnostic);
+</script>
+</body>
+</html>
