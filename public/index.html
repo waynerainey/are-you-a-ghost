@@ -657,7 +657,7 @@
 
 </div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  function toggleAccordion(id) {
+  window.toggleAccordion = function(id) {
     const body = document.getElementById('accordion-' + id);
     const chevron = document.getElementById('chevron-' + id);
     const trigger = document.getElementById('btn-' + id);
@@ -666,7 +666,7 @@
     trigger.classList.toggle('open', !isOpen);
   }
 
-  function updateMadlib(value, elId, placeholder) {
+  window.updateMadlib = function(value, elId, placeholder) {
     document.getElementById(elId).textContent = value.trim() || placeholder;
   }
 
@@ -706,7 +706,7 @@
     }
   }
 
-  async function runDiagnostic() {
+  window.runDiagnostic = async function() {
     if (!validateInputs()) return;
 
     const title      = sanitize(document.getElementById('field-title').value);
@@ -795,7 +795,7 @@
     document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  function resetTool() {
+  window.resetTool = function() {
     document.getElementById('results').classList.remove('show');
     document.getElementById('submit-btn').disabled = false;
     document.getElementById('loading-wrap').classList.remove('show');
